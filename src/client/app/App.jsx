@@ -4,7 +4,6 @@ import $ from 'jquery';
 import Main from './Main.jsx';
 import Map from './components/Map.jsx';
 import Register from './pages/Register.jsx';
-import Profile from './components/Profile.jsx';
 
 import Api from './services/api.js';
 const api = new Api();
@@ -16,7 +15,7 @@ class App extends React.Component {
             user: {
                 id: 0,
             },
-            isLogin: false
+            isLogin: false,
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -43,11 +42,9 @@ class App extends React.Component {
             <div className="wrapper">
                 {!isLogin ?
                 <Register handleSubmit={this.handleSubmit} />
-                :
-                    <Profile />
-                }
+                :null}
                 <Main />
-                <Map />
+                <Map isLogin={isLogin}/>
             </div>
         );
     }

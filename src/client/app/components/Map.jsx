@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomMarker from '../classes/CustomMarker.js';
+import Profile from './Profile.jsx';
 
 class Map extends React.Component {
     constructor() {
@@ -7,13 +7,23 @@ class Map extends React.Component {
         this.state = {
             zoom: 13,
             maptype: 'roadmap',
+            isLogin: false,
+            map: null
         };
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            isLogin: nextProps.isLogin
+        });
     }
     componentDidMount() {
         const {zoom, maptype} = this.state;
         let map = new window.google.maps.Map(document.getElementById('map'), {
             zoom: 13,
             mapTypeId: 'roadmap',
+        });
+        this.setState({
+            map: map
         });
         if (window.navigator.geolocation) {
             window.navigator.geolocation.getCurrentPosition((pos) => {
@@ -39,9 +49,15 @@ class Map extends React.Component {
         });
     }
     render() {
+        const {isLogin, map} = this.state;
         return (
-            <div id="map">
+            <div className="map">
+                <div id="map">
                 
+                </div>
+                {isLogin ?
+                <Profile map={map} />
+                :null}
             </div>
         );
     }

@@ -24,3 +24,6 @@ html, body, #app, .wrapper {
     width: 320px;
     height: 400px;
 }
+#profile {
+    left: 20px;
+}

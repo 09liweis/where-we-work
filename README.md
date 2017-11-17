@@ -1,11 +1,8 @@
-Design CSS framework: 
-http://bulma.io/
-
 Design:
-https://dribbble.com/shots/3725262-Crm-Dashboard-Dark-theme/attachments/835950
-http://steelcoders.com/modern/admin1/table-data.html
-
 https://superlist.byaviators.com/
+
+React google map:
+https://www.fullstackreact.com/articles/how-to-write-a-google-maps-react-component/
 
 To use the newly built PHP, try the line(s) below:
 
