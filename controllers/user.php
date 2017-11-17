@@ -10,15 +10,15 @@ $uRepo = new User(Database::dbConnect());
 session_start();
 
 if ($_GET['action'] == 'login') {
-    $user = $_POST['user'];
+    $user = $_POST;
     $email = $user['email'];
     $password = $user['password'];
-    $employee = $uRepo->login($email, $password);
-    if ($employee) {
-        $_SESSION['id'] = $employee['id'];
-        $_SESSION['name'] = $employee['name'];
-        $_SESSION['email'] = $employee['email'];
-        $uRepo->updateLastLogin($employee['id']);
+    $user = $uRepo->login($email, $password);
+    if ($user) {
+        $_SESSION['id'] = $user['id'];
+        $_SESSION['name'] = $user['name'];
+        $_SESSION['email'] = $user['email'];
+        $uRepo->updateLastLogin($user['id']);
         echo json_encode(array('code' => 200, 'data' => $_SESSION));
     } else {
         echo json_encode(array('code' => 404));
@@ -39,7 +39,7 @@ if ($_GET['action'] == 'logout') {
     echo json_encode(array('code' => 200));
 }
 
-if ($_GET['action'] == 'upsert') {
+if ($_GET['action'] == 'register') {
     $uRepo->upsert($_POST);
     echo json_encode(array('code' => 200));
 }

@@ -1,13 +1,17 @@
 export default class Api {
     constructor() {
-        this.base = '/admin/controllers/';
+        this.base = '/controllers/';
         this.login = 'user.php?action=login';
         this.register = 'user.php?action=register';
+        this.session = 'user.php?action=checkSession';
     }
-    login() {
+    getLogin() {
         return this.base + this.login;
     }
-    register() {
+    getRegister() {
         return this.base + this.register;
+    }
+    checkSession() {
+        return this.base + this.session;
     }
 }

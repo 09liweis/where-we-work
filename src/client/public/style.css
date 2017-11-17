@@ -19,7 +19,8 @@ html, body, #app, .wrapper {
     bottom: 0;
     z-index: 1000;
 }
-#register {
+#register,
+#profile {
     width: 320px;
     height: 400px;
 }

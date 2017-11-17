@@ -1,7 +1,13 @@
 import React from 'react';
+import $ from 'jquery';
+
 import Main from './Main.jsx';
 import Map from './components/Map.jsx';
 import Register from './pages/Register.jsx';
+import Profile from './components/Profile.jsx';
+
+import Api from './services/api.js';
+const api = new Api();
 
 class App extends React.Component {
     constructor(props) {
@@ -9,20 +15,37 @@ class App extends React.Component {
         this.state = {
             user: {
                 id: 0,
-                name: '',
-                email: '',
-                password: ''
             },
             isLogin: false
         };
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    componentWillMount() {
+        const _this = this;
+        $.ajax({
+            url: api.checkSession(),
+            success(res) {
+                if (res.code == 200) {
+                    _this.setState({
+                        user: res.data,
+                        isLogin: true
+                    });
+                }
+            }
+        });
+    }
+    handleSubmit(res) {
+        console.log(res);
     }
     render() {
         const {isLogin} = this.state;
         return (
             <div className="wrapper">
                 {!isLogin ?
-                <Register />
-                :null}
+                <Register handleSubmit={this.handleSubmit} />
+                :
+                    <Profile />
+                }
                 <Main />
                 <Map />
             </div>
