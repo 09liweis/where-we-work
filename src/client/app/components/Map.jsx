@@ -22,7 +22,14 @@ class Map extends React.Component {
                     lng: pos.coords.longitude
                 };
                 map.setCenter(center);
-                const marker = CustomMarker(center, map, 'class', 'content');
+                const marker = new window.google.maps.Marker({
+                    map: map,
+                    position: center,
+                    content: '<div id="foo">This is marker</div>'
+                });
+                marker.addListener('click', () => {
+                    console.log(marker.getPosition().lat());
+                });
             });
         }
         map.addListener('zoom_changed', () => {

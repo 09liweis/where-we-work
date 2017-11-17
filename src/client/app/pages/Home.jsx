@@ -1,5 +1,4 @@
 import React from 'react';
-import Map from '../components/Map.jsx';
 
 import $ from 'jquery';
 
@@ -14,7 +13,6 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                <Map />
             </div>
         );
     }
