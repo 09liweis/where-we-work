@@ -39,3 +39,9 @@ html, body, #app, .wrapper {
     top: 0;
     left: 0;
 }
+#logout {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    z-index: 1000;
+}

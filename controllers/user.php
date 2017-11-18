@@ -40,6 +40,19 @@ if ($_GET['action'] == 'logout') {
 }
 
 if ($_GET['action'] == 'register') {
-    $uRepo->upsert($_POST);
-    echo json_encode(array('code' => 200));
+    $userId = $uRepo->upsert($_POST);
+    $user = $uRepo->getUser($userId);
+    session_start();
+    $_SESSION['id'] = $user['id'];
+    $_SESSION['name'] = $user['name'];
+    $_SESSION['email'] = $user['email'];
+    $uRepo->updateLastLogin($user['id']);
+    echo json_encode($user);
+}
+
+if ($_GET['action'] == 'userPlace') {
+    session_start();
+    $userId = $_SESSION['id'];
+    $place = $uRepo->getUserPlace($userId);
+    echo json_encode($place);
 }

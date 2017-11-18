@@ -13,7 +13,7 @@ class Register extends React.Component {
                 email: '',
                 password: ''   
             },
-            view: 'register'
+            view: 'login'
         };
         this.changeView = this.changeView.bind(this);
         this.handleChange = this.handleChange.bind(this);

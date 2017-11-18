@@ -1,5 +1,6 @@
 Design:
 https://superlist.byaviators.com/
+https://ui8.net/products/places-directory?rel=nl
 
 React google map:
 https://www.fullstackreact.com/articles/how-to-write-a-google-maps-react-component/

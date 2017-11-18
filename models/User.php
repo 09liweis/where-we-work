@@ -56,5 +56,27 @@ class User {
             $pdostmt->bindValue(':' . $c, $v, PDO::PARAM_STR);
         }
         $pdostmt->execute();
+        $userId = $this->db->lastInsertId();
+        return $userId;
+    }
+    public function getUserPlace($userId) {
+        $sql = 'SELECT p.name, p.address, up.title 
+                FROM places p
+                JOIN user_place up
+                ON p.id = up.place_id
+                WHERE up.user_id = :user_id';
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->bindValue(':user_id', $userId, PDO::PARAM_STR);
+        $pdostmt->execute();
+        $place = $pdostmt->fetch(PDO::FETCH_ASSOC);
+        return $place;
+    }
+    public function getUser($id) {
+        $sql = 'SELECT name, email, id FROM users WHERE id = :id';
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $pdostmt->execute();
+        $user = $pdostmt->fetch(PDO::FETCH_ASSOC);
+        return $user;
     }
 }

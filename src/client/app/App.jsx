@@ -18,6 +18,7 @@ class App extends React.Component {
             isLogin: false,
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.logout = this.logout.bind(this);
     }
     componentWillMount() {
         const _this = this;
@@ -33,8 +34,22 @@ class App extends React.Component {
             }
         });
     }
+    logout() {
+        const _this = this;
+        $.ajax({
+            url: api.getLogout(),
+            success(res) {
+                _this.setState({
+                    isLogin: false
+                });
+            }
+        });
+    }
     handleSubmit(res) {
-        console.log(res);
+        this.setState({
+            user: res,
+            isLogin: true
+        });
     }
     render() {
         const {isLogin} = this.state;
@@ -42,7 +57,9 @@ class App extends React.Component {
             <div className="wrapper">
                 {!isLogin ?
                 <Register handleSubmit={this.handleSubmit} />
-                :null}
+                :
+                    <a id="logout" className="button is-danger" onClick={this.logout}>Logout</a>
+                }
                 <Main />
                 <Map isLogin={isLogin}/>
             </div>
