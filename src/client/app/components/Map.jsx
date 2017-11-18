@@ -8,8 +8,11 @@ class Map extends React.Component {
             zoom: 13,
             maptype: 'roadmap',
             isLogin: false,
-            map: null
+            map: null,
+            markers: []
         };
+        this.setMarker = this.setMarker.bind(this);
+        this.clearMarkers = this.clearMarkers.bind(this);
     }
     componentWillReceiveProps(nextProps) {
         this.setState({
@@ -32,20 +35,44 @@ class Map extends React.Component {
                     lng: pos.coords.longitude
                 };
                 map.setCenter(center);
-                const marker = new window.google.maps.Marker({
-                    map: map,
-                    position: center,
-                    content: '<div id="foo">This is marker</div>'
-                });
-                marker.addListener('click', () => {
-                    console.log(marker.getPosition().lat());
-                });
+                // const marker = new window.google.maps.Marker({
+                //     map: map,
+                //     position: center,
+                //     content: '<div id="foo">This is marker</div>'
+                // });
+                // marker.addListener('click', () => {
+                //     console.log(marker.getPosition().lat());
+                // });
             });
         }
         map.addListener('zoom_changed', () => {
             this.setState({
                 zoom: map.getZoom()
             });
+        });
+    }
+    setMarker(place) {
+        this.clearMarkers();
+        const marker = new window.google.maps.Marker({
+            map: this.state.map,
+            position: place.geometry.location,
+            title: place.name
+        });
+        marker.addListener('click', () => {
+            console.log(marker.getPosition().lat());
+        });
+        const {markers} = this.state;
+        markers.push(marker);
+        this.setState({
+            markers: markers
+        });
+    }
+    clearMarkers() {
+        this.state.markers.map((m) => {
+            m.setMap(null);
+        });
+        this.setState({
+            markers: []
         });
     }
     render() {
@@ -56,7 +83,7 @@ class Map extends React.Component {
                 
                 </div>
                 {isLogin ?
-                <Profile map={map} />
+                <Profile map={map} setMarker={this.setMarker} />
                 :null}
             </div>
         );

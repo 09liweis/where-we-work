@@ -32,7 +32,7 @@ class Profile extends React.Component {
         }.bind(this));
     }
     selectPlace(place) {
-        console.log(place);
+        this.props.setMarker(place);
     }
     componentWillReceiveProps(nextProps) {
         this.setState({
@@ -53,14 +53,15 @@ class Profile extends React.Component {
         );
         return (
             <div id="profile" className="card">
-                <div className="field">
-                    <label className="label">Search WorkPlace</label>
+                <div className="field has-addons">
                     <div className="control">
                         <input className="input" type="text" value={search} onChange={this.handleChange} />
                     </div>
+                    <div className="control">
+                        <button className="button is-success" onClick={this.handleSearch}>Search</button>
+                    </div>
                 </div>
-                <button className="button is-success" onClick={this.handleSearch}>Search</button>
-                <ul>
+                <ul className="placesList">
                 {places}
                 </ul>
             </div>
