@@ -10,7 +10,7 @@ class Profile extends React.Component {
             places: [],
             search: '',
             place: {
-                
+                id: 0
             }
         };
         this.handleChange = this.handleChange.bind(this);
@@ -32,6 +32,9 @@ class Profile extends React.Component {
         }.bind(this));
     }
     selectPlace(place) {
+        this.setState({
+            place: place
+        });
         this.props.setMarker(place);
     }
     componentWillReceiveProps(nextProps) {
@@ -47,7 +50,7 @@ class Profile extends React.Component {
         });
     }
     render() {
-        const {search} = this.state;
+        const {search, place} = this.state;
         const places = this.state.places.map((p) => 
             <li key={p.id} onClick={this.selectPlace.bind(this, p)}>{p.name}</li>
         );
@@ -64,6 +67,20 @@ class Profile extends React.Component {
                 <ul className="placesList">
                 {places}
                 </ul>
+                {(place.id != 0) ?
+                <div className="place card">
+                    <h2>{place.name}</h2>
+                    <p>{place.formatted_address}</p>
+                    <div className="field is-grouped">
+                        <div className="control">
+                            <a className="button is-primary">Save</a>
+                        </div>
+                        <div className="control">
+                            <a className="button is-text">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+                :null}
             </div>
         );
     }

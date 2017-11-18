@@ -58,13 +58,16 @@ class Map extends React.Component {
             position: place.geometry.location,
             title: place.name
         });
+        const map = this.state.map;
+        map.setCenter(place.geometry.location);
         marker.addListener('click', () => {
-            console.log(marker.getPosition().lat());
+            console.log(marker.title);
         });
         const {markers} = this.state;
         markers.push(marker);
         this.setState({
-            markers: markers
+            markers: markers,
+            map: map
         });
     }
     clearMarkers() {

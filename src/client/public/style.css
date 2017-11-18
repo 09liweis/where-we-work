@@ -28,8 +28,14 @@ html, body, #app, .wrapper {
     margin-left: inherit;
     margin-right: inherit;
     left: 5%;
+    position: relative;
 }
 .placesList {
     max-height: 255px;
     overflow-y: auto;
+}
+.place {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
