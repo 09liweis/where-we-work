@@ -1,24 +1,65 @@
+
 var webpack = require('webpack');
 var path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, 'src/client/public');
-var APP_DIR = path.resolve(__dirname, 'src/client/app');
 
-    var config = {
-        entry: APP_DIR + '/index.jsx',
-        output: {
-            path: BUILD_DIR,
-            filename: 'bundle.js'
-        },
-        module : {
-            loaders : [
-                {
-                    test : /\.jsx?/,
-                    include : APP_DIR,
-                    loader : 'babel-loader'
-                }
-            ]
+// Naming and path settings
+var appName = 'app';
+var entryPoint = './src/main.js';
+var exportPath = path.resolve(__dirname, './build');
+
+// Enviroment flag
+var plugins = [];
+var env = process.env.WEBPACK_ENV;
+
+// Differ settings based on production flag
+if (env === 'production') {
+  var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+
+  plugins.push(new UglifyJsPlugin({ minimize: true }));
+  plugins.push(new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }
+  ));
+
+  appName = appName + '.min.js';
+} else {
+  appName = appName + '.min.js';
+}
+
+// Main Settings config
+module.exports = {
+  entry: entryPoint,
+  output: {
+    path: exportPath,
+    filename: appName
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015']
         }
-    };
-
-module.exports = config;
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
+      {
+        test: /\.css$/,
+        loaders: ['style-loader', 'css-loader']
+      },
+    ]
+  },
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    }
+  },
+  plugins
+};

@@ -116,17 +116,19 @@ class Profile extends React.Component {
                 :
                 <p>You haven't added any work place yet, search and add one</p>
                 }
-                <div className="field has-addons">
-                    <div className="control">
-                        <input className="input" type="text" placeholder="Search to update your work place" value={search} name="search" onChange={this.handleChange} />
+                <div id="searchPlace" className="card">
+                    <div className="field has-addons">
+                        <div className="control">
+                            <input className="input" type="text" placeholder="Search to update your work place" value={search} name="search" onChange={this.handleChange} />
+                        </div>
+                        <div className="control">
+                            <button className="button is-success" onClick={this.handleSearch}>Search</button>
+                        </div>
                     </div>
-                    <div className="control">
-                        <button className="button is-success" onClick={this.handleSearch}>Search</button>
-                    </div>
+                    <ul className="placesList">
+                    {places}
+                    </ul>
                 </div>
-                <ul className="placesList">
-                {places}
-                </ul>
                 {(updatePlace) ?
                 <div className="place card">
                     <h2>{place.name}</h2>

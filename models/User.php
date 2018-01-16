@@ -79,4 +79,18 @@ class User {
         $user = $pdostmt->fetch(PDO::FETCH_ASSOC);
         return $user;
     }
+    public function users($currentUserId) {
+        $sql = 'SELECT u.name, p.lat, p.lng, p.name, up.title
+                FROM users u
+                JOIN user_place up
+                ON u.id = up.user_id
+                JOIN places p
+                ON up.place_id = p.id
+                WHERE u.id != :id';
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->bindValue(':id', $currentUserId, PDO::PARAM_STR);
+        $pdostmt->execute();
+        $users = $pdostmt->fetchAll(PDO::FETCH_ASSOC);
+        return $users;
+    }
 }

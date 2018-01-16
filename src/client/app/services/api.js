@@ -7,6 +7,7 @@ export default class Api {
         this.logout = 'user.php?action=logout';
         this.savePlace = 'place.php?action=savePlace';
         this.userPlace = 'user.php?action=userPlace';
+        this.users = 'user.php?action=users';
     }
     getLogin() {
         return this.base + this.login;
@@ -25,5 +26,8 @@ export default class Api {
     }
     getLogout() {
         return this.base + this.logout;
+    }
+    getUsers() {
+        return this.base + this.users;
     }
 }
