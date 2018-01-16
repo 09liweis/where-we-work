@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import * as VueGoogleMaps from 'vue2-google-maps';
 import VueSource from 'vue-resource';
 import MuseUI from 'muse-ui';
 import router from './router/router.js';
@@ -10,6 +11,12 @@ import 'muse-ui/dist/muse-ui.css';
 
 Vue.use(MuseUI);
 Vue.use(VueSource);
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: 'AIzaSyDm9CvJGdlS7X20LxX5Y63b5RyLsjTO4Sc',
+        libraries: 'places'
+    }
+});
 
 const http =  {
     emulateJSON: true,

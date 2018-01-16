@@ -6,7 +6,7 @@ var path = require('path');
 // Naming and path settings
 var appName = 'app';
 var entryPoint = './src/main.js';
-var exportPath = path.resolve(__dirname, './build');
+var exportPath = path.resolve(__dirname, './public');
 
 // Enviroment flag
 var plugins = [];
