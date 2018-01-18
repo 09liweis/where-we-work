@@ -1,16 +1,22 @@
 <template>
     <div class="container">
-        <gmap-map
-            v-if="this.$store.state.map.hasCenter"
-            :center="this.$store.state.map.center"
-            :zoom="12"
-        >
-        </gmap-map>
-        <router-view></router-view>
+        <header id="header">
+            <h1>Where We Work</h1>
+            <router-link to="/signup">Sign Up</router-link>
+        </header>
+        <GoogleMap />
+        <main id="main">
+            <router-view></router-view>
+        </main>
     </div>
 </template>
 <script>
+import GoogleMap from './components/GoogleMap.vue';
 export default {
+    name: 'app',
+    components: {
+        GoogleMap
+    },
     data() {
         return {
             
@@ -20,10 +26,7 @@ export default {
         
     },
     mounted() {
-        window.navigator.geolocation.getCurrentPosition((p) => {
-            const location = {lat: p.coords.latitude, lng: p.coords.longitude};
-            this.$store.commit('setMapCenter', location);
-        });
+
     },
     methods: {
         
@@ -34,12 +37,13 @@ export default {
 html, body {
     height: 100%;
 }
-.vue-map-container {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    position: absolute !important;
-    z-index: 0;
+#header {
+    position: absolute;
+    top: 0px;
+    z-index: 1;
+}
+#main {
+    position: absolute;
+    z-index: 1;
 }
 </style>

@@ -2,13 +2,15 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Home from '../views/Home.vue';
+import Signup from '../views/Signup.vue';
 
 Vue.use(VueRouter);
 
 export default new VueRouter({
-    mode: 'history',
+    //mode: 'history',
     base: __dirname,
     routes: [
          { path: '/', component: Home },
+         { path: '/signup', component: Signup },
     ]
 });
