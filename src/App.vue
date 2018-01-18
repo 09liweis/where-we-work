@@ -5,9 +5,7 @@
             <router-link to="/signup">Sign Up</router-link>
         </header>
         <GoogleMap />
-        <main id="main">
-            <router-view></router-view>
-        </main>
+        <router-view></router-view>
     </div>
 </template>
 <script>
@@ -42,8 +40,16 @@ html, body {
     top: 0px;
     z-index: 1;
 }
-#main {
+.main-inner {
+    padding: 25px;
     position: absolute;
     z-index: 1;
+    width: 100%;
+    background-color: #ffffff;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 </style>
