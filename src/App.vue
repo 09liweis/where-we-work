@@ -1,15 +1,45 @@
 <template>
     <div class="container">
-        <h1>Where We Work</h1>
         <gmap-map
-            :center="{lat: 10.0, lng: 10.0}"
-            :zoom="7"
-            style="width: 500px; height: 300px"
+            v-if="this.$store.state.map.hasCenter"
+            :center="this.$store.state.map.center"
+            :zoom="12"
         >
         </gmap-map>
         <router-view></router-view>
     </div>
 </template>
+<script>
+export default {
+    data() {
+        return {
+            
+        };
+    },
+    computed: {
+        
+    },
+    mounted() {
+        window.navigator.geolocation.getCurrentPosition((p) => {
+            const location = {lat: p.coords.latitude, lng: p.coords.longitude};
+            this.$store.commit('setMapCenter', location);
+        });
+    },
+    methods: {
+        
+    }
+};
+</script>
 <style type="text/css">
-
+html, body {
+    height: 100%;
+}
+.vue-map-container {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute !important;
+    z-index: 0;
+}
 </style>
