@@ -1,8 +1,8 @@
 <template>
     <div id="signup" class="main-inner">
         <h2>Sign Up</h2>
-        <mu-text-field label="Email" v-model="email" labelFloat fullWidth />
-        <mu-text-field type="password" v-model="password" label="Password" labelFloat fullWidth />
+        <mu-text-field label="Email" v-model="user.email" labelFloat fullWidth />
+        <mu-text-field type="password" v-model="user.password" label="Password" labelFloat fullWidth />
         <mu-raised-button label="Sign Up" class="demo-raised-button" primary v-on:click="handleSignUp" />
     </div>
 </template>
@@ -10,8 +10,10 @@
 export default {
     data() {
         return {
-            email: '',
-            password: ''
+            user: {
+                email: 'weisen.li@hotmail.com',
+                password: '1234'
+            }
         };
     },
     computed: {
@@ -22,7 +24,15 @@ export default {
     },
     methods: {
         handleSignUp() {
-            
+            const params = {
+                email: this.user.email,
+                password: this.user.password
+            };
+            this.$http.post(this.$store.state.api.signup, params).then(res => {
+                
+            }, res => {
+                //error
+            });
         }
     }
 };

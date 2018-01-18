@@ -13,6 +13,7 @@ const state = {
         hasCenter: false
     },
     api: {
+        signup: '/users/signup'
     }
 };
 
