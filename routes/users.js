@@ -8,8 +8,13 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/signin', function(req, res, next) {
-  res.send('respond with a resource');
+router.post('/login', function(req, res, next) {
+    const email = req.body.email;
+    const password = req.body.password;
+    User.findOne({email: email, password: password}, (err, user) => {
+        if (err) throw err;
+        res.send(user);
+    });
 });
 
 router.post('/signup', function(req, res, next) {

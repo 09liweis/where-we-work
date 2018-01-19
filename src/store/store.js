@@ -4,7 +4,10 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = {
-    message: 'Hello Vuex',
+    user: {
+        id: window.localStorage.getItem('id') || '',
+        login: window.localStorage.getItem('id') ? true : false
+    },
     map: {
         center: {
             lat: '',
@@ -13,7 +16,8 @@ const state = {
         hasCenter: false
     },
     api: {
-        signup: '/users/signup'
+        signup: '/users/signup',
+        login: '/users/login'
     }
 };
 
@@ -27,6 +31,11 @@ const mutations = {
     setMapCenter(state, location) {
         state.map.center = location;
         state.map.hasCenter = true;
+    },
+    login(state, user) {
+        state.user.login = true;
+        state.user.id = user._id;
+        window.localStorage.setItem('id', user._id);
     }
 };
 

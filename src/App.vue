@@ -1,8 +1,10 @@
 <template>
     <div class="container">
         <header id="header">
-            <h1>Where We Work</h1>
-            <router-link to="/signup">Sign Up</router-link>
+            <mu-appbar title="Where We Work">
+                <router-link to="/signup" slot="right">Sign Up</router-link>
+                <router-link to="/login" slot="right">Login</router-link>
+            </mu-appbar>
         </header>
         <GoogleMap />
         <router-view></router-view>
@@ -24,7 +26,9 @@ export default {
         
     },
     mounted() {
-
+        if (this.$store.state.user.login) {
+            this.$router.push({ path: '/' });
+        }
     },
     methods: {
         
@@ -39,6 +43,7 @@ html, body {
     position: absolute;
     top: 0px;
     z-index: 1;
+    width: 100%;
 }
 .main-inner {
     padding: 25px;
