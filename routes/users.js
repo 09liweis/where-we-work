@@ -2,10 +2,14 @@ var express = require('express');
 var router = express.Router();
 
 const User = require('../models/user');
+const Place = require('../models/place');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  User.find({}).populate('place').exec((err, users) => {
+      if (err) throw err;
+      res.send(users);
+  });
 });
 
 router.post('/login', function(req, res, next) {
@@ -39,6 +43,42 @@ router.post('/signup', function(req, res, next) {
         res.send(newUser);
     });
     
+});
+
+router.get('/:id', function(req, res, next) {
+    const userId = req.params.id;
+    User.findOne({_id: userId}, (err, user) => {
+        if (err) throw err;
+        res.send(user);
+    });
+});
+
+router.post('/:id', async (req, res, next) => {
+    const userId = req.params.id;
+    const place = req.body.place;
+    const userData = req.body.user;
+    
+    const p = await Place.findOne({google_place_id: place.google_place_id});
+    if (!p) {
+        p = Place(place);
+        p = await p.save();
+    } else {
+        p.location = place.location;
+        p.address = place.address;
+        p.name = p.name;
+    }
+    console.log(p);
+    
+    User.findOne({_id: userId}, (err, user) => {
+        if (err) throw err;
+        user.name = userData.name;
+        user.title = userData.title;
+        user.place = p._id;
+        user.save(function(err) {
+            if (err) throw err;
+            res.send(user);
+        });
+    });
 });
 
 module.exports = router;

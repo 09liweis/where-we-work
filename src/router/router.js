@@ -5,6 +5,8 @@ import Home from '../views/Home.vue';
 import Signup from '../views/Signup.vue';
 import Login from '../views/Login.vue';
 
+import EditProfile from '../views/EditProfile.vue';
+
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -14,5 +16,6 @@ export default new VueRouter({
          { path: '/', component: Home },
          { path: '/signup', component: Signup },
          { path: '/login', component: Login },
+         { path: '/editProfile', component: EditProfile },
     ]
 });

@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     name: String,
+    title: String,
     email: {
         type: String,
         require: true
@@ -10,6 +11,10 @@ const userSchema = new Schema({
     password: {
         type: String,
         require: true
+    },
+    place: {
+        type: Schema.Types.ObjectId,
+        ref: 'Place'
     },
     created_at: Date,
     updated_at: Date

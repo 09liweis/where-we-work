@@ -4,6 +4,14 @@
         :center="this.$store.state.map.center"
         :zoom="12"
     >
+        <gmap-marker
+            :key="index"
+            v-for="(m, index) in this.$store.state.map.markers"
+            :position="m.position"
+            :clickable="true"
+            :draggable="true"
+            @click="center=m.position"
+        ></gmap-marker>
     </gmap-map>
 </template>
 <script>
@@ -20,6 +28,11 @@ export default {
         window.navigator.geolocation.getCurrentPosition((p) => {
             const location = {lat: p.coords.latitude, lng: p.coords.longitude};
             this.$store.commit('setMapCenter', location);
+        });
+        this.$http.get(this.$store.state.api.users).then(res => {
+            console.log(res.body);
+        }, res => {
+            
         });
     },
     methods: {

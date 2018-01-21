@@ -4,6 +4,7 @@
             <mu-appbar title="Where We Work">
                 <router-link to="/signup" slot="right">Sign Up</router-link>
                 <router-link to="/login" slot="right">Login</router-link>
+                <router-link to="/editProfile" slot="right">Edit Profile</router-link>
             </mu-appbar>
         </header>
         <GoogleMap />
@@ -27,7 +28,7 @@ export default {
     },
     mounted() {
         if (this.$store.state.user.login) {
-            this.$router.push({ path: '/' });
+            //this.$router.push({ path: '/' });
         }
     },
     methods: {
@@ -46,6 +47,7 @@ html, body {
     width: 100%;
 }
 .main-inner {
+    max-width: 320px;
     padding: 25px;
     position: absolute;
     z-index: 1;

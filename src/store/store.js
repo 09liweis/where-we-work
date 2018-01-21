@@ -13,11 +13,15 @@ const state = {
             lat: '',
             lng: ''   
         },
-        hasCenter: false
+        hasCenter: false,
+        markers: []
     },
     api: {
         signup: '/users/signup',
-        login: '/users/login'
+        login: '/users/login',
+        users: '/users',
+        userDetail: '/users/' + window.localStorage.getItem('id'),
+        updateUser: '/users/' + window.localStorage.getItem('id')
     }
 };
 
