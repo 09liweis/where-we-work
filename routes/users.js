@@ -58,14 +58,10 @@ router.post('/:id', async (req, res, next) => {
     const place = req.body.place;
     const userData = req.body.user;
     
-    const p = await Place.findOne({google_place_id: place.google_place_id});
+    let p = await Place.findOne({google_place_id: place.google_place_id});
     if (!p) {
-        try {
-            p = await Place(place);
-            await p.save();
-        } catch(err) {
-            throw err;
-        }
+        p = Place(place);
+        await p.save();
     } else {
         p.lat = place.lat;
         p.lng = place.lng;
