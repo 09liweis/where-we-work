@@ -36,6 +36,11 @@ const mutations = {
         state.map.center = location;
         state.map.hasCenter = true;
     },
+    renderMarker(state, marker) {
+        const markers = state.map.markers;
+        markers.push(marker);
+        state.map.markers = markers;
+    },
     login(state, user) {
         state.user.login = true;
         state.user.id = user._id;

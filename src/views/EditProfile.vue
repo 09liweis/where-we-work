@@ -3,7 +3,10 @@
         <h2>Edit Profile</h2>
         <mu-text-field label="Name" v-model="user.name" labelFloat fullWidth />
         <mu-text-field label="Title" v-model="user.title" labelFloat fullWidth />
-        <GmapAutocomplete @place_changed="setPlace"></GmapAutocomplete>
+        <div class="mu-text-field has-label no-empty-state full-width">
+            <GmapAutocomplete class="mu-text-field-input" @place_changed="setPlace"></GmapAutocomplete>
+        </div>
+        <br/>
         <mu-raised-button label="Update" class="demo-raised-button" primary v-on:click="handleUpdate" />
     </div>
 </template>
@@ -16,10 +19,8 @@ export default {
                 title: ''
             },
             place: {
-                location: {
-                    lat: '',
-                    lng: ''
-                },
+                lat: '',
+                lng: '',
                 address: '',
                 google_place_id: '',
                 name: ''
@@ -28,7 +29,10 @@ export default {
     },
     mounted() {
         this.$http.get(this.$store.state.api.userDetail).then(res => {
-            console.log(res);
+            if (res.status == 200) {
+                this.user.name = res.body.name;
+                this.user.title = res.body.title;
+            }
         }, res => {
             //
         });
@@ -36,8 +40,8 @@ export default {
     methods: {
         setPlace(place) {
             this.place.name = place.name;
-            this.place.location.lat = place.geometry.location.lat();
-            this.place.location.lng = place.geometry.location.lng();
+            this.place.lat = place.geometry.location.lat();
+            this.place.lng = place.geometry.location.lng();
             this.place.address = place.formatted_address;
             this.place.google_place_id = place.place_id;
         },

@@ -30,7 +30,19 @@ export default {
             this.$store.commit('setMapCenter', location);
         });
         this.$http.get(this.$store.state.api.users).then(res => {
-            console.log(res.body);
+            if (res.status == 200) {
+                const users = res.body;
+                users.map((user) => {
+                    const marker = {
+                        title: user.place.name,
+                        position: {
+                            lat: user.place.lat,
+                            lng: user.place.lng
+                        }
+                    };
+                    this.$store.commit('renderMarker', marker);
+                });
+            }
         }, res => {
             
         });
