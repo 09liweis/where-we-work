@@ -50,7 +50,12 @@ export default {
                 const users = res.body;
                 users.map((user) => {
                     const marker = {
+                        user: {
+                            name: user.name,
+                            title: user.title
+                        },
                         title: user.place.name,
+                        address: user.place.address,
                         position: {
                             lat: user.place.lat,
                             lng: user.place.lng

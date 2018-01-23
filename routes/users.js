@@ -6,7 +6,7 @@ const Place = require('../models/place');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  User.find({}).populate('place').exec((err, users) => {
+  User.find({}).select('name title').populate('place').exec((err, users) => {
       if (err) throw err;
       res.send(users);
   });
