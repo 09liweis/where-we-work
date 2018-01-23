@@ -45,6 +45,11 @@ const mutations = {
         state.user.login = true;
         state.user.id = user._id;
         window.localStorage.setItem('id', user._id);
+    },
+    logout(state) {
+        state.user.login = false;
+        state.user.id = '';
+        window.localStorage.setItem('id', '');
     }
 };
 
