@@ -10,15 +10,31 @@
             :position="m.position"
             :clickable="true"
             :draggable="true"
-            @click="center=m.position"
+            @click="handleClickMarker(m)"
         ></gmap-marker>
+        <gmap-info-window :options="infoWindow.option" :position="infoWindow.position" :opened="infoWindow.open" @closeclick="infoWindow.open=false">
+        {{infoWindow.content}}
+      </gmap-info-window>
     </gmap-map>
 </template>
 <script>
 export default {
     data() {
         return {
-            
+            infoWindow: {
+                open: false,
+                option: {
+                    pixelOffset: {
+                        width: 0,
+                        height: -35
+                    }
+                },
+                position: {
+                    lat: 0,
+                    lng: 0
+                },
+                content: ''
+            }
         };
     },
     computed: {
@@ -48,7 +64,11 @@ export default {
         });
     },
     methods: {
-        
+        handleClickMarker(m) {
+            this.infoWindow.position = m.position;
+            this.infoWindow.open = true;
+            this.infoWindow.content = m.title;
+        }
     }
 };
 </script>
