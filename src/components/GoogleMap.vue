@@ -2,7 +2,8 @@
     <gmap-map
         v-if="this.$store.state.map.hasCenter"
         :center="this.$store.state.map.center"
-        :zoom="12"
+        :zoom="15"
+        @click="handleClickMap()"
     >
         <gmap-marker
             :key="index"
@@ -13,7 +14,10 @@
             @click="handleClickMarker(m)"
         ></gmap-marker>
         <gmap-info-window :options="infoWindow.option" :position="infoWindow.position" :opened="infoWindow.open" @closeclick="infoWindow.open=false">
-        {{infoWindow.content}}
+        <p>{{infoWindow.content.name}}</p>
+        <p>{{infoWindow.content.title}}</p>
+        <p>{{infoWindow.content.company}}</p>
+        <p>{{infoWindow.content.address}}</p>
       </gmap-info-window>
     </gmap-map>
 </template>
@@ -33,7 +37,12 @@ export default {
                     lat: 0,
                     lng: 0
                 },
-                content: ''
+                content: {
+                    name: '',
+                    title: '',
+                    address: '',
+                    company: ''
+                }
             }
         };
     },
@@ -54,7 +63,7 @@ export default {
                             name: user.name,
                             title: user.title
                         },
-                        title: user.place.name,
+                        company: user.place.name,
                         address: user.place.address,
                         position: {
                             lat: user.place.lat,
@@ -69,10 +78,18 @@ export default {
         });
     },
     methods: {
+        handleClickMap() {
+            this.infoWindow.open = false;
+        },
         handleClickMarker(m) {
             this.infoWindow.position = m.position;
             this.infoWindow.open = true;
-            this.infoWindow.content = m.title;
+            this.infoWindow.content = {
+                name: m.user.name,
+                title: m.user.title,
+                address: m.address,
+                company: m.company
+            };
         }
     }
 };

@@ -53,7 +53,7 @@ html, body {
     z-index: 1;
     width: 100%;
     background-color: #ffffff;
-    left: 10%;
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
 }
