@@ -55,6 +55,7 @@ export default {
             };
             this.$http.post(this.$store.state.api.updateUser, params).then(res => {
                 console.log(res);
+                this.$router.push('/');
             }, res => {
                 
             });
