@@ -48,7 +48,7 @@ router.post('/signup', function(req, res, next) {
 
 router.get('/:id', function(req, res, next) {
     const userId = req.params.id;
-    User.findOne({_id: userId}).populate('place').exec((err, user) => {
+    User.findOne({_id: userId}).select('name title').populate('place').exec((err, user) => {
         if (err) throw err;
         res.send(user);
     });
