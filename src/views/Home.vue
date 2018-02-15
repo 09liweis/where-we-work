@@ -1,6 +1,6 @@
 <template>
     <div id="home" class="main-inner">
-        
+        <h1>Welcome To Where We Work</h1>
     </div>
 </template>
 <script>

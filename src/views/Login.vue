@@ -32,6 +32,7 @@ export default {
                 if (res.status == 200) {
                     const user = res.body;
                     this.$store.commit('login', user);
+                    this.$router.push('/');
                 }
             }, res => {
                 //error
