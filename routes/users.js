@@ -4,7 +4,7 @@ var router = express.Router();
 const User = require('../models/user');
 const Place = require('../models/place');
 
-/* GET users listing. */
+/* GET users with work place. */
 router.get('/', function(req, res, next) {
   User.find({}).select('name title').populate('place').exec((err, users) => {
       if (err) throw err;
@@ -12,6 +12,7 @@ router.get('/', function(req, res, next) {
   });
 });
 
+//handle user login
 router.post('/login', function(req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
