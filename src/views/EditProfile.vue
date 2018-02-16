@@ -4,6 +4,7 @@
         <mu-text-field label="Name" v-model="user.name" labelFloat fullWidth />
         <mu-text-field label="Title" v-model="user.title" labelFloat fullWidth />
         <div class="mu-text-field has-label no-empty-state full-width">
+            <h4>Current Company: {{place.name}}</h4>
             <GmapAutocomplete class="mu-text-field-input" @place_changed="setPlace"></GmapAutocomplete>
         </div>
         <br/>

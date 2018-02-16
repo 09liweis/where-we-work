@@ -60,16 +60,24 @@ router.post('/:id', async (req, res, next) => {
     const userData = req.body.user;
     
     let p = await Place.findOne({google_place_id: place.google_place_id});
-    if (!p) {
-        p = Place(place);
-        await p.save();
-    } else {
-        p.lat = place.lat;
-        p.lng = place.lng;
-        p.address = place.address;
-        p.name = p.name;
-        await p.save();
+    
+    try {
+        if (!p) {
+            p = Place(place);
+            await p.save();
+        } 
+        // update place with latest google info
+        // else {
+        //     p.lat = place.lat;
+        //     p.lng = place.lng;
+        //     p.address = place.address;
+        //     p.name = p.name;
+        //     await p.save();
+        // }
+    } catch (err) {
+        console.log(err);
     }
+    console.log(p);
 
     User.findOne({_id: userId}, (err, user) => {
         if (err) throw err;
