@@ -10,7 +10,7 @@ var mongodb;
 if (process.env.C9_USER) {
     mongodb = 'mongodb://' + process.env.IP + '/where_we_work';
 } else {
-    mongodb = 'mongodb://samliweisen:kanamemadoka2016@ds239368.mlab.com:39368/heroku_w04hmq79';
+    mongodb = 'mongodb://heroku_w04hmq79:8khn5l6ui7745rlpsi1dmg61d9@ds239368.mlab.com:39368/heroku_w04hmq79';
 }
 mongoose.connect(mongodb);
 
