@@ -6,7 +6,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/where_we_work');
+var mongodb;
+if (process.env.C9_USER) {
+    mongodb = 'mongodb://' + process.env.IP + '/where_we_work';
+} else {
+    mongodb = 'mongodb://heroku_w04hmq79:lAALwZkYfdOC9prCGpcrgWLH6NQf3fVJ@ds239368.mlab.com:39368/heroku_w04hmq79';
+}
+mongoose.connect(mongodb);
 
 var index = require('./routes/index');
 var users = require('./routes/users');

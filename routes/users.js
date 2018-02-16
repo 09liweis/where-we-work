@@ -48,7 +48,7 @@ router.post('/signup', function(req, res, next) {
 
 router.get('/:id', function(req, res, next) {
     const userId = req.params.id;
-    User.findOne({_id: userId}).select('name title').populate('place').exec((err, user) => {
+    User.findOne({_id: userId}).select('name title').populate('place', 'name').exec((err, user) => {
         if (err) throw err;
         res.send(user);
     });
@@ -60,26 +60,25 @@ router.post('/:id', async (req, res, next) => {
     const userData = req.body.user;
     
     let p = await Place.findOne({google_place_id: place.google_place_id});
-    
+
     try {
         if (!p) {
             p = Place(place);
             await p.save();
         } 
         // update place with latest google info
-        // else {
-        //     p.lat = place.lat;
-        //     p.lng = place.lng;
-        //     p.address = place.address;
-        //     p.name = p.name;
-        //     await p.save();
-        // }
+        else {
+            p.lat = place.lat;
+            p.lng = place.lng;
+            p.address = place.address;
+            p.name = p.name;
+            await p.save();
+        }
     } catch (err) {
-        console.log(err);
+        console.log(err.errmsg);
     }
-    console.log(p);
 
-    User.findOne({_id: userId}, (err, user) => {
+    User.findOne({_id: userId}).select('name title').exec((err, user) => {
         if (err) throw err;
         user.name = userData.name;
         user.title = userData.title;

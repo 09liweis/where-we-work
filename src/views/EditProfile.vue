@@ -46,6 +46,8 @@ export default {
             this.place.lng = place.geometry.location.lng();
             this.place.address = place.formatted_address;
             this.place.google_place_id = place.place_id;
+            //when change to a new place need to delete the id
+            delete this.place._id;
         },
         handleUpdate() {
             const params = {
