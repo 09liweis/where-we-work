@@ -28,7 +28,10 @@ router.post('/signup', function(req, res, next) {
     //check if email exist
     User.find({email: email}, (err, user) => {
         if (user) {
-            res.send('User Exist');
+            res.send({
+                code: 300,
+                message: 'User Exist.'
+            });
         }
         if (err) throw err;
     });
@@ -41,7 +44,16 @@ router.post('/signup', function(req, res, next) {
     });
     newUser.save(function(err) {
         if (err) throw err;
-        res.send(newUser);
+        res.send({
+            code: 200,
+            message: 'Sign up successfully',
+            data: {
+                user: {
+                    name: newUser.name,
+                    title: newUser.title
+                }
+            }
+        });
     });
     
 });
