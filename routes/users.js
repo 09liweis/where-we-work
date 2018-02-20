@@ -22,29 +22,32 @@ router.post('/login', function(req, res, next) {
     });
 });
 
-router.post('/signup', function(req, res, next) {
+router.post('/signup', async function(req, res, next) {
     const email = req.body.email;
-    
+    res.writeHead(200, {'Content-Type': 'application/json'});
+
     //check if email exist
-    User.find({email: email}, (err, user) => {
-        if (user) {
-            res.send({
-                code: 300,
-                message: 'User Exist.'
-            });
-        }
-        if (err) throw err;
-    });
+    let user = await User.findOne({email: email});
+    if (user) {
+        return res.end(JSON.stringify({
+            code: 300,
+            message: 'User Exist.'
+        }));
+    }
     
     const password = req.body.password;
+    const name = req.body.name;
+    const title = req.body.title;
     
     const newUser = User({
         email: email,
-        password: password
+        password: password,
+        name: name,
+        title: title
     });
     newUser.save(function(err) {
         if (err) throw err;
-        res.send({
+        return res.send({
             code: 200,
             message: 'Sign up successfully',
             data: {
