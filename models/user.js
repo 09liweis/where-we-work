@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt');
 var Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -28,7 +29,14 @@ userSchema.pre('save', function(next) {
     if (!this.created_at) {
         this.created_at = currentDate;
     }
-    next();
+    bcrypt.hash(this.password, 10, (err, hash) => {
+        console.log(err);
+        if (err) {
+          return next(err);
+        }
+        this.password = hash;
+        next();
+    });
 });
 
 var User = mongoose.model('User', userSchema);

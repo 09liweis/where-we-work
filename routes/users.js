@@ -47,7 +47,7 @@ router.post('/signup', async function(req, res, next) {
     });
     newUser.save(function(err) {
         if (err) throw err;
-        return res.send({
+        return res.end(JSON.stringify({
             code: 200,
             message: 'Sign up successfully',
             data: {
@@ -56,7 +56,7 @@ router.post('/signup', async function(req, res, next) {
                     title: newUser.title
                 }
             }
-        });
+        }));
     });
     
 });
