@@ -57,21 +57,25 @@ export default {
         this.$http.get(this.$store.state.api.users).then(res => {
             if (res.status == 200) {
                 const users = res.body;
-                users.map((user) => {
-                    const marker = {
-                        user: {
-                            name: user.name,
-                            title: user.title
-                        },
-                        company: user.place.name,
-                        address: user.place.address,
-                        position: {
-                            lat: user.place.lat,
-                            lng: user.place.lng
+                if (users.length > 0) {
+                    users.map((user) => {
+                        if (user.place) {
+                            const marker = {
+                                user: {
+                                    name: user.name,
+                                    title: user.title
+                                },
+                                company: user.place.name,
+                                address: user.place.address,
+                                position: {
+                                    lat: user.place.lat,
+                                    lng: user.place.lng
+                                }
+                            };
+                            this.$store.commit('renderMarker', marker);
                         }
-                    };
-                    this.$store.commit('renderMarker', marker);
-                });
+                    });
+                }
             }
         }, res => {
             

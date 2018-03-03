@@ -52,6 +52,7 @@ router.post('/signup', async function(req, res, next) {
             message: 'Sign up successfully',
             data: {
                 user: {
+                    _id: newUser._id,
                     name: newUser.name,
                     title: newUser.title
                 }

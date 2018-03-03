@@ -35,9 +35,13 @@ export default {
                 password: this.user.password
             };
             this.$http.post(this.$store.state.api.signup, params).then(res => {
-                console.log(res);
-                return false;
-                this.$router.push('/editProfile');
+                if (res.status == 200) {
+                    const user = res.body.data.user;
+                    this.$store.commit('login', user);
+                    this.$router.push('/editProfile');
+                } else {
+                    alert('Something wrong');
+                }
             }, res => {
                 //error
             });

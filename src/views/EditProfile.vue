@@ -33,7 +33,9 @@ export default {
             if (res.status == 200) {
                 this.user.name = res.body.name;
                 this.user.title = res.body.title;
-                this.place = res.body.place;
+                if (res.body.place) {
+                    this.place = res.body.place;   
+                }
             }
         }, res => {
             //
