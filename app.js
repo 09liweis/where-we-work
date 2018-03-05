@@ -19,7 +19,6 @@ mongoose.connect(mongodb);
 var index = require('./routes/index');
 var users = require('./routes/users');
 var comments = require('./routes/comment');
-var api_proxy = require('./routes/api_proxy');
 
 var app = express();
 
@@ -44,8 +43,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use('/users', users);
 app.use('/comments', comments);
-
-app.use('/api_proxy', api_proxy);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
