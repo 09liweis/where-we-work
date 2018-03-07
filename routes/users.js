@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var bcrypt = require('bcrypt');
 
 const User = require('../models/user');
 const Place = require('../models/place');
@@ -13,12 +14,16 @@ router.get('/', function(req, res, next) {
 });
 
 //handle user login
-router.post('/login', function(req, res, next) {
+router.post('/login', async function(req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
-    User.findOne({email: email, password: password}, (err, user) => {
+    User.findOne({email: email}, (err, user) => {
         if (err) throw err;
-        res.send(user);
+        user.comparePassword(password, function(err, isMatch) {
+            if (err) throw err;
+            console.log('Password123:', isMatch); // -> Password123: true
+            res.send(user);
+        });
     });
 });
 
@@ -99,7 +104,7 @@ router.post('/:id', async (req, res, next) => {
         user.name = userData.name;
         user.title = userData.title;
         user.place = p._id;
-        user.save(function(err) {
+        User.update(user, function(err) {
             if (err) throw err;
             res.send(user);
         });
