@@ -2,10 +2,10 @@
     <div class="container">
         <header id="header">
             <mu-appbar title="Where We Work">
-                <router-link to="/signup" slot="right" v-if="!isLogin">Sign Up</router-link>
-                <router-link to="/login" slot="right" v-if="!isLogin">Login</router-link>
-                <router-link to="/editProfile" slot="right" v-if="isLogin">Edit Profile</router-link>
-                <a v-on:click="handleLogout()" slot="right" v-if="isLogin">Log Out</a>
+                <router-link to="/signup" slot="right" v-if="!this.$store.state.user.login">Sign Up</router-link>
+                <router-link to="/login" slot="right" v-if="!this.$store.state.user.login">Login</router-link>
+                <router-link to="/editProfile" slot="right" v-if="this.$store.state.user.login">Edit Profile</router-link>
+                <a v-on:click="handleLogout()" slot="right" v-if="this.$store.state.user.login">Log Out</a>
             </mu-appbar>
         </header>
         <GoogleMap />
@@ -21,10 +21,11 @@ export default {
     },
     data() {
         return {
-            isLogin: this.$store.state.user.login
+            
         };
     },
     computed: {
+
     },
     mounted() {
         if (this.$store.state.user.login) {
@@ -34,6 +35,7 @@ export default {
     methods: {
         handleLogout() {
             this.$store.commit('logout');
+            this.$router.push('/');
         }
     }
 };
