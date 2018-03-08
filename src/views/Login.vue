@@ -11,8 +11,8 @@ export default {
     data() {
         return {
             user: {
-                email: 'weisen.li@hotmail.com',
-                password: '1234'
+                email: '',
+                password: ''
             }
         };
     },
