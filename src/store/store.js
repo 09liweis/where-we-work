@@ -19,9 +19,9 @@ const state = {
     api: {
         signup: '/users/signup',
         login: '/users/login',
-        users: '/users',
+        users: '/users/',
         userDetail: '/users/' + window.localStorage.getItem('id'),
-        updateUser: '/users/' + window.localStorage.getItem('id')
+        updateUser: '/users/' + window.localStorage.getItem('id') // window.localStoreage not working here
     }
 };
 

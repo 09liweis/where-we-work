@@ -29,7 +29,8 @@ export default {
         };
     },
     mounted() {
-        this.$http.get(this.$store.state.api.userDetail).then(res => {
+        this.$http.get(this.$store.state.api.users + this.$store.state.user.id).then(res => {
+            console.log(res);
             if (res.status == 200) {
                 this.user.name = res.body.name;
                 this.user.title = res.body.title;
@@ -59,8 +60,7 @@ export default {
                 },
                 place: this.place
             };
-            this.$http.post(this.$store.state.api.updateUser, params).then(res => {
-                console.log(res);
+            this.$http.post(this.$store.state.api.users + this.$store.state.user.id, params).then(res => {
                 this.$router.push('/');
             }, res => {
                 

@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var bcrypt = require('bcrypt');
 
 const User = require('../models/user');
 const Place = require('../models/place');
@@ -43,12 +42,33 @@ router.post('/signup', async function(req, res, next) {
     const password = req.body.password;
     const name = req.body.name;
     const title = req.body.title;
+    const place = req.body.place;
+    
+    let p = await Place.findOne({google_place_id: place.google_place_id});
+
+    try {
+        if (!p) {
+            p = Place(place);
+            await p.save();
+        } 
+        // update place with latest google info
+        else {
+            p.lat = place.lat;
+            p.lng = place.lng;
+            p.address = place.address;
+            p.name = p.name;
+            await p.save();
+        }
+    } catch (err) {
+        console.log(err.errmsg);
+    }
     
     const newUser = User({
         email: email,
         password: password,
         name: name,
-        title: title
+        title: title,
+        place: p._id
     });
     newUser.save(function(err) {
         if (err) throw err;
@@ -105,6 +125,8 @@ router.post('/:id', async (req, res, next) => {
         user.title = userData.title;
         user.place = p._id;
         User.update(user, function(err) {
+            console.log(user);
+            console.log(p);
             if (err) throw err;
             res.send(user);
         });
