@@ -54,32 +54,7 @@ export default {
             const location = {lat: p.coords.latitude, lng: p.coords.longitude};
             this.$store.commit('setMapCenter', location);
         });
-        this.$http.get(this.$store.state.api.users).then(res => {
-            if (res.status == 200) {
-                const users = res.body;
-                if (users.length > 0) {
-                    users.map((user) => {
-                        if (user.place) {
-                            const marker = {
-                                user: {
-                                    name: user.name,
-                                    title: user.title
-                                },
-                                company: user.place.name,
-                                address: user.place.address,
-                                position: {
-                                    lat: user.place.lat,
-                                    lng: user.place.lng
-                                }
-                            };
-                            this.$store.commit('renderMarker', marker);
-                        }
-                    });
-                }
-            }
-        }, res => {
-            
-        });
+        this.$store.commit('renderMarkers');
     },
     methods: {
         handleClickMap() {

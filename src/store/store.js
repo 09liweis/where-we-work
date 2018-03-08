@@ -36,6 +36,33 @@ const mutations = {
         state.map.center = location;
         state.map.hasCenter = true;
     },
+    renderMarkers(state) {
+        state.map.markers = [];
+        Vue.http.get(state.api.users).then((res) => {
+            if (res.status == 200) {
+                const users = res.body;
+                if (users.length > 0) {
+                    users.map((user) => {
+                        if (user.place) {
+                            const marker = {
+                                user: {
+                                    name: user.name,
+                                    title: user.title
+                                },
+                                company: user.place.name,
+                                address: user.place.address,
+                                position: {
+                                    lat: user.place.lat,
+                                    lng: user.place.lng
+                                }
+                            };
+                            state.map.markers.push(marker);
+                        }
+                    });
+                }
+            }
+        });
+    },
     renderMarker(state, marker) {
         const markers = state.map.markers;
         markers.push(marker);

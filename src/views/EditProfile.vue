@@ -61,6 +61,7 @@ export default {
                 place: this.place
             };
             this.$http.post(this.$store.state.api.users + this.$store.state.user.id, params).then(res => {
+                this.$store.commit('renderMarkers');
                 this.$router.push('/');
             }, res => {
                 

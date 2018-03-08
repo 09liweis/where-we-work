@@ -58,6 +58,7 @@ export default {
                 if (res.status == 200) {
                     const user = res.body.data.user;
                     this.$store.commit('login', user);
+                    this.$store.commit('renderMarkers');
                     this.$router.push('/editProfile');
                 } else {
                     alert('Something wrong');
