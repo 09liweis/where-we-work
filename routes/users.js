@@ -125,10 +125,11 @@ router.post('/:id', async (req, res, next) => {
         user.title = userData.title;
         user.place = p._id;
         User.update(user, function(err) {
-            console.log(user);
-            console.log(p);
-            if (err) throw err;
-            res.send(user);
+            try {
+                res.send(user);
+            } catch (err) {
+                if (err) throw err;
+            }
         });
     });
 });
