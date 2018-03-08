@@ -2,10 +2,10 @@
     <div class="container">
         <header id="header">
             <mu-appbar title="Where We Work">
-                <router-link to="/signup" slot="right" v-if="!this.$store.state.user.login">Sign Up</router-link>
-                <router-link to="/login" slot="right" v-if="!this.$store.state.user.login">Login</router-link>
-                <router-link to="/editProfile" slot="right" v-if="this.$store.state.user.login">Edit Profile</router-link>
-                <a v-on:click="handleLogout()" slot="right" v-if="this.$store.state.user.login">Log Out</a>
+                <mu-flat-button color="white" label="Sign Up" slot="right" v-if="!this.$store.state.user.login" v-on:click="gotoSignUp()"/>
+                <mu-flat-button color="white" label="Login" slot="right" v-if="!this.$store.state.user.login" v-on:click="gotoLogin()"/>
+                <mu-flat-button color="white" label="Edit Profile" slot="right" v-if="this.$store.state.user.login" v-on:click="gotoEdit()"/>
+                <mu-flat-button color="red" label="Logout" slot="right" v-if="this.$store.state.user.login" v-on:click="handleLogout()"/>
             </mu-appbar>
         </header>
         <GoogleMap />
@@ -33,6 +33,15 @@ export default {
         }
     },
     methods: {
+        gotoSignUp() {
+            this.$router.push('/signup');
+        },
+        gotoLogin() {
+            this.$router.push('login');
+        },
+        gotoEdit() {
+            this.$router.push('editProfile');
+        },
         handleLogout() {
             this.$store.commit('logout');
             this.$router.push('/');
