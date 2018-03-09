@@ -39,8 +39,14 @@ export default {
     },
     methods: {
         handleSignUp() {
-            if (this.user.email == '' || this.user.password == '') {
+            const email = this.user.email;
+            if (email == '' || this.user.password == '') {
                 alert('Email or Password is missing!');
+                return false;
+            }
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (re.test(String(email).toLowerCase()) == false) {
+                alert('Email is not valid');
                 return false;
             }
             if (this.place.google_place_id == '') {
@@ -50,7 +56,7 @@ export default {
             const params = {
                 name: this.user.name,
                 title: this.user.title,
-                email: this.user.email,
+                email: email,
                 password: this.user.password,
                 place: this.place
             };
