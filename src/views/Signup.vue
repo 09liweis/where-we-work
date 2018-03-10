@@ -4,6 +4,7 @@
         <mu-text-field label="Email" v-model="user.email" labelFloat fullWidth />
         <mu-text-field label="Name" v-model="user.name" labelFloat fullWidth />
         <mu-text-field label="Title" v-model="user.title" labelFloat fullWidth />
+        <mu-text-field label="Website" v-model="user.website" labelFloat fullWidth />
         <mu-text-field type="password" v-model="user.password" label="Password" labelFloat fullWidth />
         <div class="mu-text-field has-label no-empty-state full-width">
             <h4>Current Company: {{place.name}}</h4>
@@ -20,6 +21,7 @@ export default {
                 email: '',
                 name: '',
                 title: '',
+                website: '',
                 password: ''
             },
             place: {
@@ -56,6 +58,7 @@ export default {
             const params = {
                 name: this.user.name,
                 title: this.user.title,
+                website: this.user.website,
                 email: email,
                 password: this.user.password,
                 place: this.place

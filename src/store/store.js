@@ -47,7 +47,8 @@ const mutations = {
                             const marker = {
                                 user: {
                                     name: user.name,
-                                    title: user.title
+                                    title: user.title,
+                                    website: user.website
                                 },
                                 company: user.place.name,
                                 address: user.place.address,

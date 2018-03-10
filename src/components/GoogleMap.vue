@@ -15,6 +15,7 @@
         ></gmap-marker>
         <gmap-info-window :options="infoWindow.option" :position="infoWindow.position" :opened="infoWindow.open" @closeclick="infoWindow.open=false">
         <p>{{infoWindow.content.name}}</p>
+        <p v-if="infoWindow.content.website"><a :href="infoWindow.content.website" target="_blank">{{infoWindow.content.website}}</a></p>
         <p>{{infoWindow.content.title}}</p>
         <p>{{infoWindow.content.company}}</p>
         <p>{{infoWindow.content.address}}</p>
@@ -66,6 +67,7 @@ export default {
             this.infoWindow.content = {
                 name: m.user.name,
                 title: m.user.title,
+                website: m.user.website,
                 address: m.address,
                 company: m.company
             };

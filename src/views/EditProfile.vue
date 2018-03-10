@@ -3,6 +3,7 @@
         <h2>Edit Profile</h2>
         <mu-text-field label="Name" v-model="user.name" labelFloat fullWidth />
         <mu-text-field label="Title" v-model="user.title" labelFloat fullWidth />
+        <mu-text-field label="Website" v-model="user.website" labelFloat fullWidth />
         <div class="mu-text-field has-label no-empty-state full-width">
             <h4>Current Company: {{place.name}}</h4>
             <GmapAutocomplete class="mu-text-field-input" @place_changed="setPlace"></GmapAutocomplete>
@@ -17,7 +18,8 @@ export default {
         return {
             user: {
                 name: '',
-                title: ''
+                title: '',
+                website: ''
             },
             place: {
                 lat: '',
@@ -34,6 +36,7 @@ export default {
             if (res.status == 200) {
                 this.user.name = res.body.name;
                 this.user.title = res.body.title;
+                this.user.website = res.body.website;
                 if (res.body.place) {
                     this.place = res.body.place;   
                 }
@@ -56,7 +59,8 @@ export default {
             const params = {
                 user: {
                     name: this.user.name,
-                    title: this.user.title
+                    title: this.user.title,
+                    website: this.user.website
                 },
                 place: this.place
             };

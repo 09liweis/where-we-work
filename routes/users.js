@@ -6,7 +6,7 @@ const Place = require('../models/place');
 
 /* GET users with work place. */
 router.get('/', function(req, res, next) {
-  User.find({}).select('name title').populate('place').exec((err, users) => {
+  User.find({}).select('name title website').populate('place').exec((err, users) => {
       if (err) throw err;
       res.send(users);
   });
@@ -42,6 +42,7 @@ router.post('/signup', async function(req, res, next) {
     const password = req.body.password;
     const name = req.body.name;
     const title = req.body.title;
+    const website = req.body.website;
     const place = req.body.place;
     
     let p = await Place.findOne({google_place_id: place.google_place_id});
@@ -68,6 +69,7 @@ router.post('/signup', async function(req, res, next) {
         password: password,
         name: name,
         title: title,
+        website: website,
         place: p._id
     });
     newUser.save(function(err) {
@@ -89,7 +91,7 @@ router.post('/signup', async function(req, res, next) {
 
 router.get('/:id', function(req, res, next) {
     const userId = req.params.id;
-    User.findOne({_id: userId}).select('name title').populate('place', 'name').exec((err, user) => {
+    User.findOne({_id: userId}).select('name title website').populate('place', 'name').exec((err, user) => {
         if (err) throw err;
         res.send(user);
     });
@@ -123,11 +125,13 @@ router.post('/:id', async (req, res, next) => {
         if (err) throw err;
         user.name = userData.name;
         user.title = userData.title;
+        user.website = userData.website;
         user.place = p._id;
         User.update({_id: userId},
                     {
                         name: userData.name,
                         title: userData.title,
+                        website: userData.website,
                         place: p._id
                     }, function(err) {
             if (err) throw err;
