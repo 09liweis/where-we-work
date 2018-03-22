@@ -24,6 +24,10 @@
         </gmap-map>
         <div id="workplaces">
             <h2>List of current work places</h2>
+            <div class="workplace" v-for="m in this.$store.state.map.markers">
+                <h3>{{m.company}}</h3>
+                <p>{{m.address}}</p>
+            </div>
         </div>
     </div>
 </template>
@@ -89,10 +93,12 @@ export default {
     left: 0;
 }
 #workplaces {
+    padding: 20px;
     position: absolute;
+    top: 64px;
     right: 0;
     width: 400px;
-    background-color: rgba(0,0,0,0.7);
+    background-color: #ffffff;
 }
 .vue-map-container {
     width: 100%;
